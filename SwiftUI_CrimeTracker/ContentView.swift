@@ -29,10 +29,14 @@ struct ContentView: View {
             }.frame(width:100, alignment: .bottom).padding(.bottom)
             
            
-            Button(action: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/{}/*@END_MENU_TOKEN@*/) {
-                Text("Get Crime Data")
-                    .frame(width: 300.0, height: 50)
-            }
+            Button(action: {
+               print("Button Tapped")
+            
+                
+                    
+            }) {
+                Text("Hi There")
+            } .frame(width: 300.0, height: 50)
            
             .background(Color.gray)
             .foregroundColor(Color.white)
