@@ -7,49 +7,22 @@
 
 import SwiftUI
 
-enum City: String, CaseIterable, Identifiable {
-    case Oakland
-    case Fremont
-    case Hayward
-    case Berkeley
-    case SanLeandro = "San Leandro"
-    case Livermore
-    case Pleasanton
-    case Alameda
-    case UnionCity = "Union City"
-    case Dublin
-    case Newark
-    case Emeryville
-    case Piedmont
-    
-    var id: String {self.rawValue}
-    
-}
-
 struct ContentView: View {
     @State private var selectedCity = "Oakland"
     
-    func passDataTo(data:String) {
-        var view = CrimeListView()
-        view.city = data
-    }
     var body: some View {
         NavigationView {
             VStack {
+//MARK:- CrimeTracker Icon
                 Image("Icon").padding(.bottom)
                 
-                Picker("City", selection: $selectedCity) {
-                    ForEach(City.allCases) { city in
-                        Text(city.rawValue)
-                    }
-            
-                }
-                .pickerStyle(WheelPickerStyle())
-                .frame(width:1,alignment:.bottom)
+//MARK:- City Selection PickerView
+                CrimePickerView(city: $selectedCity)
                 
                  
                 Text("City is \(selectedCity)")
-                NavigationLink(destination: CrimeListView()) {
+//MARK:- Get Crimes Button
+                NavigationLink(destination: CrimeListView(city: $selectedCity)) {
                     Text("Get Crimes")
                         .padding(.trailing, 40)
                         .padding(.leading, 40)
@@ -59,7 +32,7 @@ struct ContentView: View {
                 .background(Color.gray)
                 .foregroundColor(Color.white)
                 .cornerRadius(15)
-                
+ //MARK:- Lower Image
                 Image("Image").resizable().frame(width: 300, height: 60, alignment: .center) .aspectRatio(contentMode: .fit)
             }
         }

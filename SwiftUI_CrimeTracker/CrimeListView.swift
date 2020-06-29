@@ -9,15 +9,19 @@ import SwiftUI
 
 struct CrimeListView: View {
     
-    var city = String()
+    @Binding var city: String
     var body: some View {
+       
         Text("\(city)")
+            .font(.title)
+            .bold()
+            
         
     }
 }
 
 struct CrimeListView_Previews: PreviewProvider {
     static var previews: some View {
-        CrimeListView()
+        CrimeListView(city: .constant(""))
     }
 }
