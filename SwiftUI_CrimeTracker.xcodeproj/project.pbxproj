@@ -12,6 +12,7 @@
 		D0BC37CB24A6AA6F0028C4D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0BC37CA24A6AA6F0028C4D9 /* Assets.xcassets */; };
 		D0BC37CE24A6AA6F0028C4D9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0BC37CD24A6AA6F0028C4D9 /* Preview Assets.xcassets */; };
 		D0F3016B24A98B3200D0068B /* CrimeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F3016A24A98B3200D0068B /* CrimeListView.swift */; };
+		D0F3016D24AA941B00D0068B /* CrimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F3016C24AA941B00D0068B /* CrimePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		D0BC37CD24A6AA6F0028C4D9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D0BC37CF24A6AA6F0028C4D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0F3016A24A98B3200D0068B /* CrimeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrimeListView.swift; sourceTree = "<group>"; };
+		D0F3016C24AA941B00D0068B /* CrimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrimePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				D0BC37C624A6AA6E0028C4D9 /* SwiftUI_CrimeTrackerApp.swift */,
 				D0BC37C824A6AA6E0028C4D9 /* ContentView.swift */,
+				D0F3016C24AA941B00D0068B /* CrimePickerView.swift */,
 				D0F3016A24A98B3200D0068B /* CrimeListView.swift */,
 				D0BC37CA24A6AA6F0028C4D9 /* Assets.xcassets */,
 				D0BC37CF24A6AA6F0028C4D9 /* Info.plist */,
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0F3016B24A98B3200D0068B /* CrimeListView.swift in Sources */,
+				D0F3016D24AA941B00D0068B /* CrimePickerView.swift in Sources */,
 				D0BC37C924A6AA6E0028C4D9 /* ContentView.swift in Sources */,
 				D0BC37C724A6AA6E0028C4D9 /* SwiftUI_CrimeTrackerApp.swift in Sources */,
 			);

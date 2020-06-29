@@ -7,48 +7,64 @@
 
 import SwiftUI
 
+enum City: String, CaseIterable, Identifiable {
+    case Oakland
+    case Fremont
+    case Hayward
+    case Berkeley
+    case SanLeandro = "San Leandro"
+    case Livermore
+    case Pleasanton
+    case Alameda
+    case UnionCity = "Union City"
+    case Dublin
+    case Newark
+    case Emeryville
+    case Piedmont
+    
+    var id: String {self.rawValue}
+    
+}
+
 struct ContentView: View {
-    @State var getCrimeButtonPressed = false
+    @State private var selectedCity = "Oakland"
+    
+    func passDataTo(data:String) {
+        var view = CrimeListView()
+        view.city = data
+    }
     var body: some View {
         NavigationView {
             VStack {
                 Image("Icon").padding(.bottom)
                 
-                Picker(selection: .constant(1), label: Text("Picker")
-                        .multilineTextAlignment(.center)
-                        .padding(0.0)) {
-                    Text("Oakland").tag(1)
-                    Text("Fremont").tag(2)
-                    Text("Hayward").tag(3)
-                    Text("Berkeley").tag(4)
-                    Text("San Leandro").tag(5)
-                    Text("Livermore").tag(6)
-                    Text("Pleasanton").tag(7)
-                    Text("Alameda").tag(8)
-                    Text("Union City").tag(9)
-                    Text("Dublin").tag(10)
-                }.frame(width:100, alignment: .bottom).padding(.bottom)
-                
-                NavigationLink(destination: CrimeListView()) {
-                    Text("Get Crimes")
-                }
-                .frame(width: 300.0, height: 50)
-                .background(Color.gray)
-                .foregroundColor(Color.white)
-                .frame(width: 300.0, height: 50.0)
-                .cornerRadius(15)
-                
-                
-               
-               
+                Picker("City", selection: $selectedCity) {
+                    ForEach(City.allCases) { city in
+                        Text(city.rawValue)
+                    }
             
                 }
+                .pickerStyle(WheelPickerStyle())
+                .frame(width:1,alignment:.bottom)
                 
-                Image("Image").resizable().frame(width: 300, height: 100, alignment: .center) .aspectRatio(contentMode: .fit)
+                 
+                Text("City is \(selectedCity)")
+                NavigationLink(destination: CrimeListView()) {
+                    Text("Get Crimes")
+                        .padding(.trailing, 40)
+                        .padding(.leading, 40)
+                        .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                }
+                .isDetailLink(true)
+                .background(Color.gray)
+                .foregroundColor(Color.white)
+                .cornerRadius(15)
                 
+                Image("Image").resizable().frame(width: 300, height: 60, alignment: .center) .aspectRatio(contentMode: .fit)
             }
         }
     }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
