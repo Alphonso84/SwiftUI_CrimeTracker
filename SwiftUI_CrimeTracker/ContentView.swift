@@ -55,10 +55,7 @@ class Helper: ObservableObject {
 struct ContentView: View {
     var helper = Helper()
     @State private var selectedCity = ""
-    
     @State var region = MKCoordinateRegion(center:Helper().cityMapShouldShow(city: Helper().location), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-    
-
     
     var body: some View {
         NavigationView {
