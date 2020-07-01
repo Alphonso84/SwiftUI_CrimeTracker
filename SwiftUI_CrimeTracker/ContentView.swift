@@ -20,6 +20,7 @@ struct ContentView: View {
                 
 //MARK:- City Selection PickerView
                 CrimePickerView(city: $selectedCity)
+                    
 //MARK:- Get Crimes Button
 
                 NavigationLink(destination: CrimeListView(city: $selectedCity, coordinate: $region, region: $mkReg)) {
@@ -38,11 +39,11 @@ struct ContentView: View {
                 Image("Image").resizable().frame(width: 300, height: 60, alignment: .center) .aspectRatio(contentMode: .fit)
             }.onChange(of: selectedCity) { value in
                 region = cityMapShouldShow(city: selectedCity)
-                mkReg = MKCoordinateRegion(center: region, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+                mkReg = MKCoordinateRegion(center: region, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.2))
             }
         }
     }
-    
+
     func cityMapShouldShow(city:String) ->CLLocationCoordinate2D {
         var here = CLLocationCoordinate2D()
         
@@ -67,7 +68,7 @@ struct ContentView: View {
             here = unionCity
         case "Dublin":
             here = dublin
-        case "Neward":
+        case "Newark":
             here = newark
         case "Emeryville":
             here = emeryville
