@@ -10,8 +10,8 @@ import MapKit
 
 struct ContentView: View {
     @State private var selectedCity = ""
-    @State var region = MKCoordinateRegion(center:oakland, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-    
+    @State var region = oakland
+    @State var mkReg = MKCoordinateRegion()
     var body: some View {
         NavigationView {
             VStack {
@@ -22,7 +22,7 @@ struct ContentView: View {
                 CrimePickerView(city: $selectedCity)
 //MARK:- Get Crimes Button
 
-                NavigationLink(destination: CrimeListView(city: $selectedCity, region: $region)) {
+                NavigationLink(destination: CrimeListView(city: $selectedCity, coordinate: $region, region: $mkReg)) {
                     
                     Text("Get Crime Results")
                         .font(.title)
@@ -33,10 +33,51 @@ struct ContentView: View {
                 .background(Color.gray)
                 .foregroundColor(Color.white)
                 .cornerRadius(15)
+    
  //MARK:- Lower Image
                 Image("Image").resizable().frame(width: 300, height: 60, alignment: .center) .aspectRatio(contentMode: .fit)
+            }.onChange(of: selectedCity) { value in
+                region = cityMapShouldShow(city: selectedCity)
+                mkReg = MKCoordinateRegion(center: region, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
             }
         }
+    }
+    
+    func cityMapShouldShow(city:String) ->CLLocationCoordinate2D {
+        var here = CLLocationCoordinate2D()
+        
+        switch city {
+        case "Oakland":
+            here = oakland
+        case "Fremont":
+            here = fremont
+        case "Hayward":
+            here = hayward
+        case "Berkeley":
+            here = berkeley
+        case "San Leandro":
+            here = sanLeandro
+        case "Livermore":
+            here = livermore
+        case "Pleasanton":
+            here = pleasanton
+        case "Alameda":
+            here = alameda
+        case "Union City":
+            here = unionCity
+        case "Dublin":
+            here = dublin
+        case "Neward":
+            here = newark
+        case "Emeryville":
+            here = emeryville
+        case "Piedmont":
+            here = piedmont
+        default:
+            here = oakland
+        }
+        
+        return here
     }
 }
 
