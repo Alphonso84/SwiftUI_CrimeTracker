@@ -8,15 +8,17 @@
 import MapKit
 import SwiftUI
 
+
 struct CrimeListView: View {
     
     @Binding var city: String
     @Binding var region: MKCoordinateRegion
-    
+   
     var body: some View {
         VStack {
            
             Map(coordinateRegion: $region).edgesIgnoringSafeArea(.all)
+            
            
             Text("\(city)")
                 .font(.title)
