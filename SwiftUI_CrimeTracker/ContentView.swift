@@ -15,13 +15,13 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-//MARK:- CrimeTracker Icon
+//MARK: - CrimeTracker Icon
                 Image("Icon").padding(.bottom)
                 
-//MARK:- City Selection PickerView
+//MARK: - City Selection PickerView
                 CrimePickerView(city: $selectedCity)
                     
-//MARK:- Get Crimes Button
+//MARK: - Get Crimes Button
 
                 NavigationLink(destination: CrimeListView(city: $selectedCity, coordinate: $location, region: $region)) {
                     
@@ -35,7 +35,7 @@ struct ContentView: View {
                 .foregroundColor(Color.white)
                 .cornerRadius(15)
     
- //MARK:- Lower Image
+//MARK: - Lower Image
                 Image("Image").resizable().frame(width: 300, height: 60, alignment: .center) .aspectRatio(contentMode: .fit)
                 
             }.onChange(of: selectedCity) { value in
@@ -44,7 +44,8 @@ struct ContentView: View {
             }
         }
     }
-
+    
+//MARK: - Method used to return a CLLocationCoordinate based on selectedCity variable.
     func cityMapShouldShow(city:String) ->CLLocationCoordinate2D {
         var here = CLLocationCoordinate2D()
         
