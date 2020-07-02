@@ -19,6 +19,7 @@ struct CrimePickerView: View {
             ForEach(City.allCases) { city in
                 Text(city.rawValue)
             }
+            .font(.largeTitle)
         }
         .pickerStyle(WheelPickerStyle())
         .frame(width:1,alignment:.bottom)
