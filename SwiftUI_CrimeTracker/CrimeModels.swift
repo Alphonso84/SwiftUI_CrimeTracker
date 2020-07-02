@@ -1,46 +1,120 @@
 //
-//  CrimeModels.swift
+//  CrimeData.swift
 //  SwiftUI_CrimeTracker
 //
-//  Created by Alphonso Sensley II on 6/29/20.
+//  Created by Alphonso Sensley II on 7/2/20.
 //
-import MapKit
+
 import Foundation
 
 
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
+//
+//   let welcome = try? newJSONDecoder().decode(Welcome.self, from: jsonData)
 
-let oakland = CLLocationCoordinate2D(latitude: 37.8044, longitude: -122.2712)
-let fremont = CLLocationCoordinate2D(latitude: 37.5485, longitude: -121.9886)
-let hayward = CLLocationCoordinate2D(latitude: 37.6688, longitude: -122.0810)
-let berkeley = CLLocationCoordinate2D(latitude: 37.8715, longitude: -122.2730)
-let sanLeandro = CLLocationCoordinate2D(latitude: 37.7258, longitude: -122.159)
-let livermore = CLLocationCoordinate2D(latitude: 37.6819, longitude: -121.7685)
-let pleasanton = CLLocationCoordinate2D(latitude: 37.6604, longitude: -121.8758)
-let alameda = CLLocationCoordinate2D(latitude: 37.7799, longitude: -122.2822)
-let unionCity = CLLocationCoordinate2D(latitude: 37.5934, longitude: -122.0439)
-let dublin = CLLocationCoordinate2D(latitude: 37.7159, longitude: -121.9101)
-let newark = CLLocationCoordinate2D(latitude: 37.5300, longitude: -122.0384)
-let emeryville = CLLocationCoordinate2D(latitude: 37.8395, longitude: -122.2892)
-let piedmont = CLLocationCoordinate2D(latitude: 37.8244, longitude: -122.2315)
+import Foundation
 
-/*
- ENUM IS USED BY CRIMEPICKERVIEW TO POPULATE LIST OF CITIES
- */
-enum City: String, CaseIterable, Identifiable {
-    case Oakland
-    case Fremont
-    case Hayward
-    case Berkeley
-    case SanLeandro = "San Leandro"
-    case Livermore
-    case Pleasanton
-    case Alameda
-    case UnionCity = "Union City"
-    case Dublin
-    case Newark
-    case Emeryville
-    case Piedmont
-    
-    var id: String {self.rawValue}
-    
+// MARK: - Welcome
+struct Welcome: Codable {
+    let objectIDFieldName: String
+    let uniqueIDField: UniqueIDField
+    let globalIDFieldName, geometryType: String
+    let spatialReference: SpatialReference
+    let fields: [Field]
+    let features: [Feature]
+
+    enum CodingKeys: String, CodingKey {
+        case objectIDFieldName = "objectIdFieldName"
+        case uniqueIDField = "uniqueIdField"
+        case globalIDFieldName = "globalIdFieldName"
+        case geometryType, spatialReference, fields, features
+    }
 }
+
+// MARK: - Feature
+struct Feature: Codable, Hashable {
+    let attributes: Attributes
+    let geometry: Geometry
+}
+
+// MARK: - Attributes
+struct Attributes: Codable, Hashable {
+    let city: City
+    let block: String
+    let zip: String?
+    let crimeDescription: String
+    let longitude, latitude: Double
+    let dateTime: Int
+
+    enum CodingKeys: String, CodingKey {
+        case city = "City"
+        case block = "Block"
+        case zip = "Zip"
+        case crimeDescription = "CrimeDescription"
+        case longitude = "Longitude"
+        case latitude = "Latitude"
+        case dateTime = "DateTime"
+    }
+}
+
+enum City: String, Codable {
+    case city = "City"
+}
+
+// MARK: - Geometry
+struct Geometry: Codable, Hashable {
+    let x, y: Double
+}
+
+// MARK: - Field
+struct Field: Codable {
+    let name, type, alias, sqlType: String
+    let length: Int?
+    let domain, defaultValue: JSONNull?
+}
+
+// MARK: - SpatialReference
+struct SpatialReference: Codable {
+    let wkid, latestWkid: Int
+}
+
+// MARK: - UniqueIDField
+struct UniqueIDField: Codable {
+    let name: String
+    let isSystemMaintained: Bool
+}
+
+// MARK: - Encode/decode helpers
+
+class JSONNull: Codable, Hashable {
+
+    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
+        return true
+    }
+
+    public var hashValue: Int {
+        return 0
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        // No-op
+    }
+
+    public init() {}
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if !container.decodeNil() {
+            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encodeNil()
+    }
+}
+
+
+

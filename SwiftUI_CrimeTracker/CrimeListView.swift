@@ -34,7 +34,7 @@ struct CrimeListView: View {
 
 struct CrimeListView_Previews: PreviewProvider {
     static var previews: some View {
-        CrimeListView(city: .constant(""), coordinate: .constant(CLLocationCoordinate2D()), region: .constant(MKCoordinateRegion()))
+        CrimeListView(city: .constant("Oakland"), coordinate: .constant(CLLocationCoordinate2D()), region: .constant(MKCoordinateRegion()))
     }
 }
 

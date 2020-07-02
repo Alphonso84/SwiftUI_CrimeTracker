@@ -16,10 +16,10 @@ struct CrimePickerView: View {
     var body: some View {
        
         Picker("City", selection: $city) {
-            ForEach(City.allCases) { city in
+            ForEach(Cities.allCases) { city in
                 Text(city.rawValue)
             }
-            .font(.largeTitle)
+            .font(.title)
         }
         .pickerStyle(WheelPickerStyle())
         .frame(width:1,alignment:.bottom)

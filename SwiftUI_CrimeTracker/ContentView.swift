@@ -8,8 +8,14 @@
 import SwiftUI
 import MapKit
 
+struct Response: Codable {
+    var results: [Attributes]
+
+}
+
 struct ContentView: View {
-    @State private var selectedCity = ""
+    @State var results:NSArray = []
+    @State private var selectedCity = "ALAMEDA"
     @State var location = oakland
     @State var region = MKCoordinateRegion()
     var body: some View {
@@ -41,40 +47,92 @@ struct ContentView: View {
             }.onChange(of: selectedCity) { value in
                 location = cityMapShouldShow(city: selectedCity)
                 region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.2))
+                    
+            }.onAppear {
+                loadData(city: selectedCity)
             }
         }
     }
+    
+    func loadData(city:String) {
+        let cityURL:String = city
+        let urlString = "https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Crime_Reports/FeatureServer/0/query?where=City%20%3D%20%27\(cityURL)%27&outFields=City,Block,Zip,CrimeDescription,Longitude,Latitude,DateTime&outSR=4326&f=json"
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+        let request = URLRequest(url: URL(string:urlString)!)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: (request)) { (data, response, error) in
+            print("Start")
+            print(urlString)
+            guard let unwrappedData = data else {return}
+            do {
+                
+                //let jsonDecoder = JSONDecoder()
+                //let jsonData = try jsonDecoder.decode(Response.self, from: unwrappedData)
+                //USE SERILIZATION BELOW IF DECODER DOESNT WORK
+                if let jsonData = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as? [String: Any] {
+                //CRIMEDATA IS AN ARRAY OF STRUCT TYPE CRIMEREPORT
+                    let welcome = jsonData
+                    let feature = welcome["features"] as? [Any]
+                    print(feature)
+                   
+                }
+            } catch {
+                print(error)
+            }
+        }
+        task.resume()
+    }
+        
+//        URLSession.shared.dataTask(with:request) { data, request, error in
+//            if let data = data {
+//               // if let decodedResponse = try? JSONDecoder().decode(Response.self,from:data)
+//               if let decodedResponse = try JSONSerialization.jsonObject(with: data, options: []){
+//                    DispatchQueue.main.async {
+//                        self.results = decodedResponse.results
+//                        print(decodedResponse.results)
+//                    }
+//                    return
+//                }
+//            }
+//            print("Fetch failed:\(error?.localizedDescription ?? "Unknown error")")
+//        }.resume()
+//   }
     
 //MARK: - Method used to return a CLLocationCoordinate based on selectedCity variable.
     func cityMapShouldShow(city:String) ->CLLocationCoordinate2D {
         var here = CLLocationCoordinate2D()
         
         switch city {
-        case "Oakland":
+        case "OAKLAND":
             here = oakland
-        case "Fremont":
+        case "FREMONT":
             here = fremont
-        case "Hayward":
+        case "HAYWARD":
             here = hayward
-        case "Berkeley":
+        case "BERKELEY":
             here = berkeley
-        case "San Leandro":
+        case "SAN LEANDRO":
             here = sanLeandro
-        case "Livermore":
+        case "LIVERMORE":
             here = livermore
-        case "Pleasanton":
+        case "PLEASANTON":
             here = pleasanton
-        case "Alameda":
+        case "ALAMEDA":
             here = alameda
-        case "Union City":
+        case "UNION CITY":
             here = unionCity
-        case "Dublin":
+        case "DUBLIN":
             here = dublin
-        case "Newark":
+        case "NEWARK":
             here = newark
-        case "Emeryville":
+        case "EMERYVILLE":
             here = emeryville
-        case "Piedmont":
+        case "PIEDMONT":
             here = piedmont
         default:
             here = oakland
