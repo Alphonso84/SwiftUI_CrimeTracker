@@ -10,8 +10,8 @@ import MapKit
 
 struct ContentView: View {
     @State private var selectedCity = ""
-    @State var region = oakland
-    @State var mkReg = MKCoordinateRegion()
+    @State var location = oakland
+    @State var region = MKCoordinateRegion()
     var body: some View {
         NavigationView {
             VStack {
@@ -23,7 +23,7 @@ struct ContentView: View {
                     
 //MARK:- Get Crimes Button
 
-                NavigationLink(destination: CrimeListView(city: $selectedCity, coordinate: $region, region: $mkReg)) {
+                NavigationLink(destination: CrimeListView(city: $selectedCity, coordinate: $location, region: $region)) {
                     
                     Text("Get Crime Results")
                         .font(.title)
@@ -37,9 +37,10 @@ struct ContentView: View {
     
  //MARK:- Lower Image
                 Image("Image").resizable().frame(width: 300, height: 60, alignment: .center) .aspectRatio(contentMode: .fit)
+                
             }.onChange(of: selectedCity) { value in
-                region = cityMapShouldShow(city: selectedCity)
-                mkReg = MKCoordinateRegion(center: region, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.2))
+                location = cityMapShouldShow(city: selectedCity)
+                region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.2))
             }
         }
     }
