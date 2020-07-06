@@ -15,7 +15,7 @@ struct Response: Codable {
 
 struct ContentView: View {
     @State var results = [Feature]()
-    @State private var selectedCity = "ALAMEDA"
+    @State private var selectedCity = "OAKLAND"
     @State var location = oakland
     @State var region = MKCoordinateRegion()
     var body: some View {
@@ -29,7 +29,7 @@ struct ContentView: View {
                     
 //MARK: - Get Crimes Button
 
-                NavigationLink(destination: CrimeListView(city: $selectedCity, coordinate: $location, region: $region)) {
+                NavigationLink(destination: CrimeListMapView(city: $selectedCity, coordinate: $location, region: $region, crimes: $results)) {
                     
                     Text("Get Crime Results")
                         .font(.title)
@@ -53,10 +53,11 @@ struct ContentView: View {
     }
     
     func loadData(city:String) {
-        let cityURL:String = city
+        let cityURL:String = city.replacingOccurrences(of: " ", with: "%20")
         let urlString = "https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Crime_Reports/FeatureServer/0/query?where=City%20%3D%20%27\(cityURL)%27&outFields=City,Block,Zip,CrimeDescription,Longitude,Latitude,DateTime&outSR=4326&f=json"
         
         guard let url = URL(string: urlString) else {
+            print(urlString)
             print("Invalid URL")
             return
         }
@@ -77,7 +78,7 @@ struct ContentView: View {
                 //let feature = jsonData["features"] as? [[String: Any]]
                 results = jsonData.features
                
-                print(results[1].attributes)
+                print(results)
         
              //   }
             } catch {

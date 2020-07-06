@@ -9,17 +9,21 @@ import MapKit
 import SwiftUI
 
 
-struct CrimeListView: View {
+struct CrimeListMapView: View {
     
     @Binding var city: String
-   // @Binding var region: MKCoordinateRegion
     @Binding var coordinate: CLLocationCoordinate2D
     @Binding var region: MKCoordinateRegion
+    @Binding var crimes: [Feature]
     var body: some View {
         VStack {
            
             Map(coordinateRegion: $region).edgesIgnoringSafeArea(.top)
-        
+            
+            List(crimes, id: \.id) { item in
+                Text("\(item.attributes.crimeDescription)")
+                
+            }
             Text("\(city)")
                 .font(.title)
                 .bold()
@@ -34,7 +38,7 @@ struct CrimeListView: View {
 
 struct CrimeListView_Previews: PreviewProvider {
     static var previews: some View {
-        CrimeListView(city: .constant("Oakland"), coordinate: .constant(CLLocationCoordinate2D()), region: .constant(MKCoordinateRegion()))
+        CrimeListMapView(city: .constant("Oakland"), coordinate: .constant(CLLocationCoordinate2D()), region: .constant(MKCoordinateRegion()), crimes: .constant([Feature]()))
     }
 }
 

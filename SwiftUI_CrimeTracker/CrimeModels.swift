@@ -33,7 +33,8 @@ struct Welcome: Codable {
 }
 
 // MARK: - Feature
-struct Feature: Codable, Hashable {
+struct Feature: Codable, Hashable, Identifiable {
+    var id: UUID?
     let attributes: Attributes
     let geometry: Geometry
 }
