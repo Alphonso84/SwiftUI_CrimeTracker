@@ -14,8 +14,9 @@ struct Response: Codable {
 }
 
 struct ContentView: View {
-    @State var results = [Feature]()
+    
     @State private var selectedCity = "OAKLAND"
+    @State var results = [Feature]()
     @State var location = oakland
     @State var region = MKCoordinateRegion()
     var crimeDescription = [String]()
