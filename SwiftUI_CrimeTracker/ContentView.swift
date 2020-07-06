@@ -14,7 +14,7 @@ struct Response: Codable {
 }
 
 struct ContentView: View {
-    @State var results = [Attributes]()
+    @State var results = [Feature]()
     @State private var selectedCity = "ALAMEDA"
     @State var location = oakland
     @State var region = MKCoordinateRegion()
@@ -43,12 +43,10 @@ struct ContentView: View {
     
 //MARK: - Lower Image
                 Image("Image").resizable().frame(width: 300, height: 60, alignment: .center) .aspectRatio(contentMode: .fit)
-                
+              //The onChange modifier is used to monitor changes of the selectedCity @State variable and take actions whenever it is changed.
             }.onChange(of: selectedCity) { value in
                 location = cityMapShouldShow(city: selectedCity)
                 region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.2))
-                    
-            }.onAppear {
                 loadData(city: selectedCity)
             }
         }
@@ -75,11 +73,11 @@ struct ContentView: View {
                 let jsonData = try jsonDecoder.decode(Welcome.self, from: unwrappedData)
                 //USE SERILIZATION BELOW IF DECODER DOESNT WORK
                 //if let jsonData = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as? [String: Any] {
-                //CRIMEDATA IS AN ARRAY OF STRUCT TYPE CRIMEREPORT
+              
                 //let feature = jsonData["features"] as? [[String: Any]]
-                let crimeArray = jsonData.features
+                results = jsonData.features
                
-                print(crimeArray)
+                print(results[1].attributes)
         
              //   }
             } catch {
