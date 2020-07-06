@@ -14,7 +14,7 @@ struct CrimePickerView: View {
     @Binding var city:String
     
     var body: some View {
-       
+        
         Picker("City", selection: $city) {
             ForEach(Cities.allCases) { city in
                 Text(city.rawValue)
