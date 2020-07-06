@@ -18,6 +18,7 @@ struct ContentView: View {
     @State private var selectedCity = "OAKLAND"
     @State var location = oakland
     @State var region = MKCoordinateRegion()
+    var crimeDescription = [String]()
     var body: some View {
         NavigationView {
             VStack {
@@ -74,11 +75,12 @@ struct ContentView: View {
                 let jsonData = try jsonDecoder.decode(Welcome.self, from: unwrappedData)
                 //USE SERILIZATION BELOW IF DECODER DOESNT WORK
                 //if let jsonData = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as? [String: Any] {
-              
                 //let feature = jsonData["features"] as? [[String: Any]]
-                results = jsonData.features
-               
-                print(results)
+                
+                let features = jsonData.features
+                results = features
+                let crime = results
+                print(crime)
         
              //   }
             } catch {

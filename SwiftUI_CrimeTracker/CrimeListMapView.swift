@@ -20,8 +20,17 @@ struct CrimeListMapView: View {
            
             Map(coordinateRegion: $region).edgesIgnoringSafeArea(.top)
             
-            List(crimes, id: \.id) { item in
-                Text("\(item.attributes.crimeDescription)")
+            List(crimes, id: \.attributes) { item in
+                
+                HStack {
+                    Image(systemName:"person.2")
+                VStack(alignment: .leading) {
+                    Text("\(item.attributes.crimeDescription)")
+                    Text("\(item.attributes.block)").font(.subheadline).foregroundColor(.gray).multilineTextAlignment(.trailing)
+                    Text("\(item.attributes.dateTime)").font(.caption).foregroundColor(.blue)
+                }
+                
+              }
                 
             }
             Text("\(city)")
