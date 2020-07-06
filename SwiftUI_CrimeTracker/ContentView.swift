@@ -14,7 +14,7 @@ struct Response: Codable {
 }
 
 struct ContentView: View {
-    @State var results:NSArray = []
+    @State var results = [Attributes]()
     @State private var selectedCity = "ALAMEDA"
     @State var location = oakland
     @State var region = MKCoordinateRegion()
@@ -62,7 +62,7 @@ struct ContentView: View {
             print("Invalid URL")
             return
         }
-        let request = URLRequest(url: URL(string:urlString)!)
+        let request = URLRequest(url: url)
         
         let session = URLSession.shared
         let task = session.dataTask(with: (request)) { (data, response, error) in
@@ -71,16 +71,17 @@ struct ContentView: View {
             guard let unwrappedData = data else {return}
             do {
                 
-                //let jsonDecoder = JSONDecoder()
-                //let jsonData = try jsonDecoder.decode(Response.self, from: unwrappedData)
+                let jsonDecoder = JSONDecoder()
+                let jsonData = try jsonDecoder.decode(Welcome.self, from: unwrappedData)
                 //USE SERILIZATION BELOW IF DECODER DOESNT WORK
-                if let jsonData = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as? [String: Any] {
+                //if let jsonData = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as? [String: Any] {
                 //CRIMEDATA IS AN ARRAY OF STRUCT TYPE CRIMEREPORT
-                    let welcome = jsonData
-                    let feature = welcome["features"] as? [Any]
-                    print(feature)
-                   
-                }
+                //let feature = jsonData["features"] as? [[String: Any]]
+                let crimeArray = jsonData.features
+               
+                print(crimeArray)
+        
+             //   }
             } catch {
                 print(error)
             }
@@ -88,20 +89,6 @@ struct ContentView: View {
         task.resume()
     }
         
-//        URLSession.shared.dataTask(with:request) { data, request, error in
-//            if let data = data {
-//               // if let decodedResponse = try? JSONDecoder().decode(Response.self,from:data)
-//               if let decodedResponse = try JSONSerialization.jsonObject(with: data, options: []){
-//                    DispatchQueue.main.async {
-//                        self.results = decodedResponse.results
-//                        print(decodedResponse.results)
-//                    }
-//                    return
-//                }
-//            }
-//            print("Fetch failed:\(error?.localizedDescription ?? "Unknown error")")
-//        }.resume()
-//   }
     
 //MARK: - Method used to return a CLLocationCoordinate based on selectedCity variable.
     func cityMapShouldShow(city:String) ->CLLocationCoordinate2D {

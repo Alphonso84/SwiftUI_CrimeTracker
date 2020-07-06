@@ -40,26 +40,46 @@ struct Feature: Codable, Hashable {
 
 // MARK: - Attributes
 struct Attributes: Codable, Hashable {
-    let city: City
     let block: String
-    let zip: String?
+    let city: City
     let crimeDescription: String
-    let longitude, latitude: Double
     let dateTime: Int
+    let latitude: Double
+    let longitude: Double
+    let zip: String?
+    
+   
+    
 
     enum CodingKeys: String, CodingKey {
-        case city = "City"
         case block = "Block"
-        case zip = "Zip"
+        case city = "City"
         case crimeDescription = "CrimeDescription"
-        case longitude = "Longitude"
-        case latitude = "Latitude"
         case dateTime = "DateTime"
+        case latitude = "Latitude"
+        case longitude = "Longitude"
+        case zip = "Zip"
+        
+        
+        
+        
     }
 }
 
 enum City: String, Codable {
-    case city = "City"
+    case OAKLAND
+    case FREMONT
+    case HAYWARD
+    case BERKELEY
+    case SANLEANDRO = "SAN LEANDRO"
+    case LIVERMORE
+    case PLEASANTON
+    case ALAMEDA
+    case UNIONCITY = "UNION CITY"
+    case DUBLIN
+    case NEWARK
+    case EMERYVILLE
+    case PIEDMONT
 }
 
 // MARK: - Geometry
