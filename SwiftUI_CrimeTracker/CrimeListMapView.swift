@@ -31,12 +31,12 @@ struct CrimeListMapView: View {
                         .shadow(radius: 10)
                     
                     VStack(alignment: .leading) {
-                        Text("\(item.attributes.crimeDescription)")
-                        Text("\(item.attributes.block)")
+                        Text("\(item.attributes.crimeDescription!)")
+                        Text("\(item.attributes.block!)")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.trailing)
-                        Text("\(item.attributes.dateTime)")
+                        Text("\(item.attributes.dateTime!)")
                             .font(.caption)
                             .foregroundColor(.blue)
                     }

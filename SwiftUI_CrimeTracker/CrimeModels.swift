@@ -8,13 +8,6 @@
 import Foundation
 
 
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let welcome = try? newJSONDecoder().decode(Welcome.self, from: jsonData)
-
-import Foundation
-
 // MARK: - Welcome
 struct Welcome: Codable {
     let objectIDFieldName: String
@@ -38,29 +31,36 @@ struct Feature: Codable, Hashable, Identifiable {
     let attributes: Attributes
     let geometry: Geometry
     var id: UUID?
+    
+    enum CodingKeys: String, CodingKey {
+        case attributes = "attributes"
+        case geometry = "geometry"
+    }
+    
 }
 
 // MARK: - Attributes
 struct Attributes: Codable, Hashable {
-    let block: String
-    let city: City
-    let crimeDescription: String
-    let dateTime: Int
-    let latitude: Double
-    let longitude: Double
+    let city: City?
+    let block: String?
     let zip: String?
+    let crimeDescription: String?
+    let longitude: Double?
+    let latitude: Double?
+    let dateTime: Date?
     
    
     
-
+    
     enum CodingKeys: String, CodingKey {
-        case block = "Block"
         case city = "City"
-        case crimeDescription = "CrimeDescription"
-        case dateTime = "DateTime"
-        case latitude = "Latitude"
-        case longitude = "Longitude"
+        case block = "Block"
         case zip = "Zip"
+        case crimeDescription = "CrimeDescription"
+        case longitude = "Longitude"
+        case latitude = "Latitude"
+        case dateTime = "DateTime"
+        
         
         
         
