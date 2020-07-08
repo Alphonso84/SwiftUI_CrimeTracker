@@ -24,19 +24,19 @@ struct CrimeListMapView: View {
             List(crimes, id: \.attributes) { item in
                 
                 HStack(alignment: .center) {
-                    Image(systemName: "person")
+                    Image(systemName: "person.crop.square.fill")
                         .aspectRatio(contentMode: ContentMode.fit)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.white, lineWidth: 0.2))
                         .shadow(radius: 10)
                     
                     VStack(alignment: .leading) {
-                        Text("\(item.attributes.crimeDescription!)")
-                        Text("\(item.attributes.block!)")
+                        Text("\(item.attributes.crimeDescription ?? "No Crime Description Available")")
+                        Text("\(item.attributes.block ?? "No Location Information Available")")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.trailing)
-                        Text("\(item.attributes.dateTime!)")
+                        Text("\(item.attributes.dateTime ?? Date())")
                             .font(.caption)
                             .foregroundColor(.blue)
                     }

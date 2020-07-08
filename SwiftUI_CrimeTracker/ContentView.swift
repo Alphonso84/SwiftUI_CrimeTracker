@@ -56,7 +56,10 @@ struct ContentView: View {
 //MARK: - URLSESSION METHOD
     func loadData(city:String) {
         let cityURL:String = city.replacingOccurrences(of: " ", with: "%20")
+        let numberOfResults = "&$limit=20"
         let urlString = "https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Crime_Reports/FeatureServer/0/query?where=City%20%3D%20%27\(cityURL)%27&outFields=City,Block,Zip,CrimeDescription,Longitude,Latitude,DateTime&outSR=4326&f=json"
+        
+        
         
         guard let url = URL(string: urlString) else {
             print(urlString)

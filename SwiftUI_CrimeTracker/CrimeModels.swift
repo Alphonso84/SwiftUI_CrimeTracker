@@ -50,8 +50,6 @@ struct Attributes: Codable, Hashable {
     let dateTime: Date?
     
    
-    
-    
     enum CodingKeys: String, CodingKey {
         case city = "City"
         case block = "Block"
@@ -60,10 +58,6 @@ struct Attributes: Codable, Hashable {
         case longitude = "Longitude"
         case latitude = "Latitude"
         case dateTime = "DateTime"
-        
-        
-        
-        
         
     }
 }
@@ -87,6 +81,11 @@ enum City: String, Codable {
 // MARK: - Geometry
 struct Geometry: Codable, Hashable {
     let x, y: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case x = "x"
+        case y = "y"
+    }
 }
 
 // MARK: - Field
