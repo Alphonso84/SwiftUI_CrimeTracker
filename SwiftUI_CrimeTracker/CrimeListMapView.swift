@@ -22,14 +22,12 @@ struct CrimeListMapView: View {
                 .edgesIgnoringSafeArea(.top)
             
             List(crimes, id: \.attributes) { item in
-                
                 HStack(alignment: .center) {
                     Image(systemName: "person.crop.square.fill")
                         .aspectRatio(contentMode: ContentMode.fit)
                         .clipShape(Circle())
                         .overlay(Circle().stroke(Color.white, lineWidth: 0.2))
                         .shadow(radius: 10)
-                    
                     VStack(alignment: .leading) {
                         Text("\(item.attributes.crimeDescription ?? "No Crime Description Available")")
                         Text("\(item.attributes.block ?? "No Location Information Available")")
@@ -40,20 +38,14 @@ struct CrimeListMapView: View {
                             .font(.caption)
                             .foregroundColor(.blue)
                     }
-                    
                 }
-                
             }
             Text("\(city)")
                 .font(.title)
                 .bold()
-            
         }
-        
     }
-    
 }
-
 
 
 struct CrimeListView_Previews: PreviewProvider {

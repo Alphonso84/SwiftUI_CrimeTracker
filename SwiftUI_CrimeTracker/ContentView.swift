@@ -8,11 +8,6 @@
 import SwiftUI
 import MapKit
 
-struct Response: Codable {
-    var results: [Attributes]
-
-}
-
 struct ContentView: View {
     
     @State private var selectedCity = "OAKLAND"
@@ -23,29 +18,31 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-//MARK: - CrimeTracker Icon
+                //MARK: - CrimeTracker Icon
                 Image("Icon").padding(.bottom)
                 
-//MARK: - City Selection PickerView
+                //MARK: - City Selection PickerView
                 CrimePickerView(city: $selectedCity)
-                    
-//MARK: - Get Crimes Button
-
+                
+                //MARK: - Get Crimes Button(NavigationLink)
                 NavigationLink(destination: CrimeListMapView(city: $selectedCity, coordinate: $location, region: $region, crimes: $results)) {
                     
                     Text("Get Crime Results")
                         .font(.title)
                         .padding(.trailing, 40)
                         .padding(.leading, 40)
-                        .padding(/*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                        .padding(10)
                 }
                 .background(Color.gray)
                 .foregroundColor(Color.white)
                 .cornerRadius(15)
-    
-//MARK: - Lower Image
-                Image("Image").resizable().frame(width: 300, height: 60, alignment: .center) .aspectRatio(contentMode: .fit)
-              //The onChange modifier is used to monitor changes of the selectedCity @State variable and take actions whenever it is changed.
+                
+                //MARK: - Lower Image
+                Image("Image")
+                    .resizable()
+                    .frame(width: 300, height: 60, alignment: .center)
+                    .aspectRatio(contentMode: .fit)
+                //The onChange modifier is used to monitor changes of the selectedCity @State variable and take actions whenever it is changed.
             }.onChange(of: selectedCity) { value in
                 location = cityMapShouldShow(city: selectedCity)
                 region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.2))
@@ -58,8 +55,6 @@ struct ContentView: View {
         let cityURL:String = city.replacingOccurrences(of: " ", with: "%20")
         let numberOfResults = "&$limit=20"
         let urlString = "https://services5.arcgis.com/ROBnTHSNjoZ2Wm1P/arcgis/rest/services/Crime_Reports/FeatureServer/0/query?where=City%20%3D%20%27\(cityURL)%27&outFields=City,Block,Zip,CrimeDescription,Longitude,Latitude,DateTime&outSR=4326&f=json"
-        
-        
         
         guard let url = URL(string: urlString) else {
             print(urlString)
@@ -74,18 +69,15 @@ struct ContentView: View {
             print(urlString)
             guard let unwrappedData = data else {return}
             do {
-                
                 let jsonDecoder = JSONDecoder()
                 let jsonData = try jsonDecoder.decode(Welcome.self, from: unwrappedData)
-                //USE SERILIZATION BELOW IF DECODER DOESNT WORK
+                ///USE SERILIZATION BELOW IF DECODER DOESNT WORK
                 //if let jsonData = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as? [String: Any] {
                 //let feature = jsonData["features"] as? [[String: Any]]
-                
                 let features = jsonData.features
                 results = features
                 let crime = results
                 print(crime)
-        
              //   }
             } catch {
                 print(error)
